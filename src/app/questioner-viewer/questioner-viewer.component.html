@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Question</h2>
+<mat-dialog-content class="mat-typography">
+<ng-container *ngFor="let question of questions">
+  <label id="example-radio-group-label">{{question.text}}</label>
+  <mat-radio-group
+    aria-labelledby="example-radio-group-label"
+    class="example-radio-group"
+    [(ngModel)]="favoriteSeason">
+    <mat-radio-button class="example-radio-button" *ngFor="let answer of question.answer" [value]="answer">
+      {{answer}}
+    </mat-radio-button>
+  </mat-radio-group>
+</ng-container>
+  <!-- <div>Your favorite season is: {{favoriteSeason}}</div> -->
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="questions" cdkFocusInitial>Install</button>
+</mat-dialog-actions>
