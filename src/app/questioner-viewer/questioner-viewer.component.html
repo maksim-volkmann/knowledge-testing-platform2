@@ -1,11 +1,11 @@
-<h2 mat-dialog-title>Question</h2>
+<h2 mat-dialog-title>Question - Answer all of them</h2>
 <mat-dialog-content class="mat-typography">
 <ng-container *ngFor="let question of questions">
   <label id="example-radio-group-label">{{question.text}}</label>
   <mat-radio-group
     aria-labelledby="example-radio-group-label"
     class="example-radio-group"
-    [(ngModel)]="favoriteSeason">
+    [(ngModel)]="questions">
     <mat-radio-button class="example-radio-button" *ngFor="let answer of question.answer" [value]="answer">
       {{answer}}
     </mat-radio-button>
