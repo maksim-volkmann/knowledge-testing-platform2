@@ -1,19 +1,34 @@
 <h2 mat-dialog-title>Question - Answer all of them</h2>
 <mat-dialog-content class="mat-typography">
-<ng-container *ngFor="let question of questions">
-  <label id="example-radio-group-label">{{question.text}}</label>
-  <mat-radio-group
-    aria-labelledby="example-radio-group-label"
-    class="example-radio-group"
-    [(ngModel)]="questions">
-    <mat-radio-button class="example-radio-button" *ngFor="let answer of question.answer" [value]="answer">
-      {{answer}}
-    </mat-radio-button>
-  </mat-radio-group>
-</ng-container>
-  <!-- <div>Your favorite season is: {{favoriteSeason}}</div> -->
+
+  <ng-container *ngFor="let question of questions">
+    <ng-container [ngSwitch]="question.type">
+
+      <ng-container *ngSwitchCase="'single'">
+        <label id="example-radio-group-label">{{question.text}}</label>
+        <mat-radio-group
+          aria-labelledby="example-radio-group-label"
+          class="example-radio-group">
+          <mat-radio-button class="example-radio-button" *ngFor="let option of question.options" [value]="option">
+            {{option}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'multiple'">
+        <label id="example-radio-group-label">{{question.text}}</label>
+        <section class="example-section" *ngFor="let option of question.options">
+          <p><mat-checkbox formControlName="{{option}}">{{option}}</mat-checkbox></p>
+        </section>
+      </ng-container>
+
+    </ng-container>
+  </ng-container>
+
+
+ 
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [mat-dialog-close]="questions" cdkFocusInitial>Install</button>
+  <button mat-button [mat-dialog-close]="questions" cdkFocusInitial (click)="submit()">Submit</button>
 </mat-dialog-actions>
