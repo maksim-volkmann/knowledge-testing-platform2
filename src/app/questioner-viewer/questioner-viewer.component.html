@@ -2,7 +2,7 @@
 <mat-dialog-content class="mat-typography">
 
   <form>
-    <div *ngFor="let question of questions">
+    <div *ngFor="let question of pagedQuestions">
       <div class="form-group">
         <label>{{ question.text }}</label>
         <div *ngIf="question.type === 'single'">
@@ -16,12 +16,13 @@
           </div>
         </div>
         <div *ngIf="question.type === 'free-form'">
-          <textarea name="{{ question.id }}"></textarea>
+          <textarea maxlength="130" name="{{ question.id }}"></textarea>
         </div>
       </div>
     </div>
-    <button type="submit">Submit</button>
   </form>
+  <mat-paginator [length]="totalQuestions" [pageSize]="questionsPerPage" (page)="onPageChange($event)">
+  </mat-paginator>
   
   
   

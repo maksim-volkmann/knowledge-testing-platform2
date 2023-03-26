@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
+import { Component, OnInit } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 export interface Question {
   id: number;
@@ -14,10 +14,27 @@ export interface Question {
   templateUrl: './questioner-viewer.component.html',
   styleUrls: ['./questioner-viewer.component.scss']
 })
-export class QuestionerViewerComponent {
+export class QuestionerViewerComponent implements OnInit{
+  
+
+  ngOnInit(): void {
+    this.pagedQuestions = this.questions.slice(this.currentPage * this.questionsPerPage, (this.currentPage + 1) * this.questionsPerPage);
+  }
 
   submit(){
     alert('Thanks for answering.')
+  }
+
+  totalQuestions = 10; // Set the total number of questions
+  questionsPerPage = 2; // Set the number of questions per page
+  currentPage = 0; // Initialize the current page to 0
+  pageSizeOptions = [2, 5, 10]; // Add possible page sizes to the paginator
+  pagedQuestions: Question[] = []; // Create a pagedQuestions array to store the current questions
+  
+  onPageChange(event: PageEvent): void {
+    this.currentPage = event.pageIndex;
+    this.questionsPerPage = event.pageSize;
+    this.pagedQuestions = this.questions.slice(this.currentPage * this.questionsPerPage, (this.currentPage + 1) * this.questionsPerPage);
   }
 
   questions: Question[] = [
@@ -82,6 +99,7 @@ export class QuestionerViewerComponent {
       options: ['Tomato', 'Banana', 'Carrot', 'Grape'],
     },
   ];
+
 
 
 
