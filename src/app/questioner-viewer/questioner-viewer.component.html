@@ -1,29 +1,30 @@
 <h2 mat-dialog-title>Question - Answer all of them</h2>
 <mat-dialog-content class="mat-typography">
 
-  <ng-container *ngFor="let question of questions">
-    <ng-container [ngSwitch]="question.type">
-
-      <ng-container *ngSwitchCase="'single'">
-        <label id="example-radio-group-label">{{question.text}}</label>
-        <mat-radio-group
-          aria-labelledby="example-radio-group-label"
-          class="example-radio-group">
-          <mat-radio-button class="example-radio-button" *ngFor="let option of question.options" [value]="option">
-            {{option}}
-          </mat-radio-button>
-        </mat-radio-group>
-      </ng-container>
-
-      <ng-container *ngSwitchCase="'multiple'">
-        <label id="example-radio-group-label">{{question.text}}</label>
-        <section class="example-section" *ngFor="let option of question.options">
-          <p><mat-checkbox formControlName="{{option}}">{{option}}</mat-checkbox></p>
-        </section>
-      </ng-container>
-
-    </ng-container>
-  </ng-container>
+  <form>
+    <div *ngFor="let question of questions">
+      <div class="form-group">
+        <label>{{ question.text }}</label>
+        <div *ngIf="question.type === 'single'">
+          <div *ngFor="let option of question.options">
+            <mat-radio-button name="{{ question.id }}" value="{{ option }}">{{ option }}</mat-radio-button>
+          </div>
+        </div>
+        <div *ngIf="question.type === 'multiple'">
+          <div *ngFor="let option of question.options">
+            <mat-checkbox name="{{ question.id }}" value="{{ option }}">{{ option }}</mat-checkbox>
+          </div>
+        </div>
+        <div *ngIf="question.type === 'free-form'">
+          <textarea name="{{ question.id }}"></textarea>
+        </div>
+      </div>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+  
+  
+  
 
 
  
