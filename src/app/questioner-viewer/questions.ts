@@ -1,6 +1,6 @@
 import { Question } from "./hero.interface";
 
-export const QUESTIONS: Question[] = [
+export const questions: Question[] = [
   {
     id: 1,
     type: 'multiple',

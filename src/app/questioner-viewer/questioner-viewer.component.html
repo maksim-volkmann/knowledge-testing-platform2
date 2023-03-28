@@ -7,12 +7,12 @@
         <label>{{ question.text }}</label>
         <div *ngIf="question.type === 'single'">
           <div *ngFor="let option of question.options">
-            <mat-radio-button name="{{ question.id }}" value="{{ option }}">{{ option }}</mat-radio-button>
+            <mat-radio-button (click)="onRadioClick()" name="{{ question.id }}" value="{{ option }}">{{ option }}</mat-radio-button>
           </div>
         </div>
         <div *ngIf="question.type === 'multiple'">
           <div *ngFor="let option of question.options">
-            <mat-checkbox name="{{ question.id }}" value="{{ option }}">{{ option }}</mat-checkbox>
+            <mat-checkbox (change)="onCheckboxChange($event)" name="{{ question.id }}" value="{{ option }}">{{ option }}</mat-checkbox>
           </div>
         </div>
         <div *ngIf="question.type === 'free-form'">
@@ -21,7 +21,14 @@
       </div>
     </div>
   </form>
-  <mat-paginator [length]="totalQuestions" [pageSize]="questionsPerPage"></mat-paginator>
+  <mat-paginator [length]="totalQuestions" [pageSize]="questionsPerPage" (page)="onPageChange($event)">
+  </mat-paginator>
+  
+  
+  
+
+
+ 
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>

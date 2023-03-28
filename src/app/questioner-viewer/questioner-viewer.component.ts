@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild  } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Question } from './hero.interface';
-import { QUESTIONS } from './questions';
+import { questions } from './questions';
 
 @Component({
   selector: 'app-questioner-viewer',
@@ -10,7 +10,7 @@ import { QUESTIONS } from './questions';
 })
 export class QuestionerViewerComponent implements OnInit{
 
-  questions = QUESTIONS
+  questions = questions
  
 
   ngOnInit(): void {
@@ -24,7 +24,7 @@ export class QuestionerViewerComponent implements OnInit{
   totalQuestions = 5; // Set the total number of questions
   questionsPerPage = 5; // Set the number of questions per page
   currentPage = 0; // Initialize the current page to 0
-  pageSizeOptions = [5]; // Add possible page sizes to the paginator
+  pageSizeOptions = [2, 5, 10]; // Add possible page sizes to the paginator
   pagedQuestions: Question[] = []; // Create a pagedQuestions array to store the current questions
   
   onPageChange(event: PageEvent): void {
@@ -33,7 +33,29 @@ export class QuestionerViewerComponent implements OnInit{
     this.pagedQuestions = this.questions.slice(this.currentPage * this.questionsPerPage, (this.currentPage + 1) * this.questionsPerPage);
   }
 
-  
+  showNextButton(){
+    this.totalQuestions = 10;
+  }
 
+  test(){
+    this.totalQuestions = 10
+  }
+
+  selectedOptions = false;
+
+  onCheckboxChange(event: any) {
+    if (event.checked) {
+      this.selectedOptions = true;
+      console.log(this.selectedOptions)
+    } else {
+      this.selectedOptions = false;
+      console.log(this.selectedOptions)
+    }
+  }
+
+  onRadioClick(){
+    this.selectedOptions = true
+    console.log(this.selectedOptions)
+  }
 
 }
